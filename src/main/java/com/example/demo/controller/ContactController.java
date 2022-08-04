@@ -35,17 +35,13 @@ public class ContactController {
             // TODO: handle exception
             return new ResponseEntity<>("Something went wrong!!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Create contact sucessfully!!", HttpStatus.OK);
+        return new ResponseEntity<>("Not Found Contact!!", HttpStatus.OK);
     }
 
     @PutMapping("/update-contact")
-    public ResponseEntity<String> updateContact(@RequestBody Contact contact) {
-        try {
-            contactService.updateContact(contact);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Not Found Contact!!", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>("Update Contact Successfully", HttpStatus.OK);
+    public ResponseEntity<Contact> updateContact(@RequestBody Contact contact) {
+        Contact contactUpdate = contactService.updateContact(contact);
+        return ResponseEntity.ok(contactUpdate);
     }
 
     @DeleteMapping("/delete-contact-{id}")

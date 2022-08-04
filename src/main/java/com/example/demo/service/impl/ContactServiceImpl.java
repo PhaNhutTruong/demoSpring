@@ -31,8 +31,19 @@ public class ContactServiceImpl implements ContactService {
     public Contact updateContact(Contact contact) {
         // TODO Auto-generated method stub
         Contact updateContact = contactRepository.findById(contact.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Contact not exist with id: " + contact.getId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not exist with id:" + contact.getId()));
         return contactRepository.save(updateContact);
+        // return contactRepository.findById(contact.getId())
+        // .map(contactUpdate -> {
+        // contactUpdate.setName(contact.getName());
+        // contactUpdate.setBirthDay(contact.getBirthDay());
+        // return contactRepository.save(contactUpdate);
+        // })
+        // .orElseThrow(() -> new ResourceNotFoundException("Contact not exist with id:"
+        // + contact.getId()));
+        // return contactRepository.save(contact);
+        // }
+
     }
 
     @Override
