@@ -32,10 +32,10 @@ public class ContactController {
         try {
             contactService.createContact(contact);
         } catch (Exception e) {
-            // TODO: handle exception
+
             return new ResponseEntity<>("Something went wrong!!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>("Not Found Contact!!", HttpStatus.OK);
+        return new ResponseEntity<>("Create contact sucessfully!!", HttpStatus.OK);
     }
 
     @PutMapping("/update-contact")
@@ -49,7 +49,7 @@ public class ContactController {
         try {
             contactService.deleteContact(id);
         } catch (Exception e) {
-            // TODO: handle exception
+
             return new ResponseEntity<>("Not Found Contact!!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Delete Contact Successfully", HttpStatus.OK);
