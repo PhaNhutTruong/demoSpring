@@ -33,7 +33,7 @@ public class ContactController {
             contactService.createContact(contact);
         } catch (Exception e) {
 
-            return new ResponseEntity<>("Something went wrong!!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Something went wrong!!" + e, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Create contact sucessfully!!", HttpStatus.OK);
     }

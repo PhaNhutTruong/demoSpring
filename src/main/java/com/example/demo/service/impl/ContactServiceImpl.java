@@ -1,7 +1,6 @@
 package com.example.demo.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,10 +30,6 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public Contact updateContact(Contact contact) {
 
-        // Contact updateContact = contactRepository.findById(contact.getId())
-        // .orElseThrow(() -> new ResourceNotFoundException("Contact not exist with id:"
-        // + contact.getId()));
-        // return contactRepository.save(updateContact);
         return contactRepository.findById(contact.getId())
                 .map(contactUpdate -> {
                     contactUpdate.setName(contact.getName());
@@ -43,7 +38,6 @@ public class ContactServiceImpl implements ContactService {
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("Contact not exist with id:"
                         + contact.getId()));
-
     }
 
     @Override
@@ -53,8 +47,9 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Optional<Contact> findById(Long id) {
-        Optional<Contact> contact = contactRepository.findById(id);
+    public Contact findById(Long id) {
+        Contact contact = contactRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not exist with id:" + id));
         return contact;
     }
 

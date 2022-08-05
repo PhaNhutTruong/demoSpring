@@ -36,7 +36,7 @@ public class JobController {
     @PostMapping("/create-job")
     public ResponseEntity<String> createJob(@RequestBody Job job) {
         try {
-            if (contactService.findById(job.getContact().getId()).isEmpty()) {
+            if (contactService.findById(job.getContact().getId()).getId() == null) {
                 return new ResponseEntity<>("Not Found Contact with id!!" + job.getContact().getId(),
                         HttpStatus.NOT_FOUND);
             }
@@ -50,7 +50,7 @@ public class JobController {
 
     @PutMapping("/update-job")
     public ResponseEntity<?> updateJob(@RequestBody Job job) {
-        if (contactService.findById(job.getContact().getId()).isEmpty()) {
+        if (contactService.findById(job.getContact().getId()).getId() == null) {
             return new ResponseEntity<>("Not Found Contact with id!!" + job.getContact().getId(),
                     HttpStatus.NOT_FOUND);
         }

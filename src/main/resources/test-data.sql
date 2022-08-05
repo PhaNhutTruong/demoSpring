@@ -1,0 +1,1 @@
+insert into contact (name) values ('name'),('Phan Nhựt Trường'),('Pnt'),('BayTv')
