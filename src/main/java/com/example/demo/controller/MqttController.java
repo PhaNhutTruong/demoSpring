@@ -6,22 +6,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.config.MqttGateway;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.example.demo.model.Topic;
+import com.example.demo.mqtt.MQTTPublisherBase;
+import com.example.demo.mqtt.MQTTSubscriber;
+import com.example.demo.mqtt.MQTTSubscriberBase;
 
 @RestController
 public class MqttController {
+
     @Autowired
-    MqttGateway mqtGateway;
+    MQTTPublisherBase publisher;
 
-    @PostMapping("/sendMessage")
-    public ResponseEntity<?> publish(@RequestBody String mqttMessage) {
+    @Autowired
+    MQTTSubscriberBase subscribe;
 
+    @PostMapping("/mqtt/send")
+    public ResponseEntity<?> publish(@RequestBody Topic data) {
         try {
-            JsonObject convertObject = new Gson().fromJson(mqttMessage, JsonObject.class);
-            mqtGateway.senToMqtt(convertObject.get("message").toString(), convertObject.get("topic").toString());
-            return ResponseEntity.ok("Success");
+            publisher.publishMessage(data.getTopic(), data.getMessage());
+            return ResponseEntity.ok("Send to MQTT Success");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.ok("fail");
+        }
+    }
+
+    @PostMapping("/mqtt/get")
+    public ResponseEntity<?> subcribe(@RequestBody Topic data) {
+        try {
+            subscribe.subscribeMessage(data.getTopic());
+            return ResponseEntity.ok(MQTTSubscriber.messaged);
         } catch (Exception ex) {
             ex.printStackTrace();
             return ResponseEntity.ok("fail");
