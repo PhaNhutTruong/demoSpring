@@ -49,6 +49,7 @@ public class ContactServiceTest {
     }
 
     @Test
+    @Sql("classpath:test-data.sql")
     void testGetAllContactWithDatabase() {
 
         List<Contact> actualContacts = contactService.getAllContact();
